@@ -23,5 +23,28 @@ module.exports = {
             return res.status(201).send(req.session.user)
           
         }
+    },
+    login: async (req, res) => { 
+        const { username, password } = req.body;
+        const db = req.app.get('db');
+        const foundUser = await db.get_user(username);
+        const user = foundUser[0];
+
+        if (!user) {
+            res.status(401).send('Oops! Looks like you gotta make an account bruh!')
+        } else { 
+            const isAuthenticated = bcrypt.compareSync(password, user.hash)   
+            if (!isAuthenticated) {
+                res.status(401).send('Wrong password. Try again.')
+            } else { 
+                req.session.user = {
+                         isAdmin: user.is_admin,
+                         id: user.id,
+                         username: user.username
+                }
+                res.status(200).send(req.session.user)
+            }
+        }
+
     }
 }

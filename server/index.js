@@ -20,6 +20,7 @@ massive(CONNECTION_STRING)
     })
 
 app.post('/auth/register', authController.register)
+app.post('/auth/login', authController.login)
 
 app.listen(PORT || 4000, () => { 
     console.log(`Server has strted on port ${PORT}`)
