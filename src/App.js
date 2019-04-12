@@ -14,7 +14,6 @@ class App extends Component {
   }
 
   updateUser(user) {
-    console.log('called')
     this.setState({
       user,
     });
