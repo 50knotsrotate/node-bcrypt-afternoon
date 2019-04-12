@@ -6,6 +6,7 @@ const session = require('express-session')
 const { PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 const authController = require('./controllers/authController')
 const treasureController = require('./controllers/treasureController');
+const auth = require('./middleware/authMiddleware')
 
 app.use(express.json())
 app.use(session({
@@ -24,7 +25,7 @@ app.post('/auth/register', authController.register)
 app.post('/auth/login', authController.login)
 app.get('/auth/logout', authController.logout)
 app.get('/api/treasure/dragon', treasureController.dragonTreasure)
-app.get('/api/treasure/user', treasureController.getUserTreasure)
+app.get('/api/treasure/user', auth.usersOnly, treasureController.getUserTreasure)
 
 app.listen(PORT || 4000, () => { 
     console.log(`Server has strted on port ${PORT}`)
