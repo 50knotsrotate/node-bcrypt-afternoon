@@ -26,6 +26,7 @@ app.post('/auth/login', authController.login)
 app.get('/auth/logout', authController.logout)
 app.get('/api/treasure/dragon', treasureController.dragonTreasure)
 app.get('/api/treasure/user', auth.usersOnly, treasureController.getUserTreasure)
+app.post('/api/treasure/user', auth.usersOnly, treasureController.addUserTreasure)
 
 app.listen(PORT || 4000, () => { 
     console.log(`Server has strted on port ${PORT}`)
