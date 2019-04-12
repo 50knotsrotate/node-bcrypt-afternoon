@@ -8,6 +8,7 @@ module.exports = {
         const { id } = req.session.user.id
         const db = req.app.get('db');
         const result = await db.get_user_treasure([id])
+        console.log(result)
         res.status(200).send(result)
     }
 }
